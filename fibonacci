@@ -1,0 +1,60 @@
+using System;
+using System.Diagnostics;
+
+namespace ConsoleApplication1
+{
+    internal class Program
+    {
+        public static void Main(string[] args)
+        {
+            int n;
+            do
+            {
+                Console.WriteLine("Introduzca el número de datos");
+                n = Int32.Parse(Console.ReadLine());
+            } while (n <= 1);
+
+            Stopwatch timeMeasure = new Stopwatch();
+            timeMeasure.Start();
+            for (int i = 0; i < n; i++)
+            {
+                Console.Write(FibonacciRecursivo(i) + " ");
+            }
+
+            timeMeasure.Stop();
+            Console.WriteLine($"Tiempo de ejecución: {timeMeasure.Elapsed.TotalMilliseconds} ms");
+            timeMeasure.Reset();
+            timeMeasure.Start();
+            FibonacciIterativo(n);
+            timeMeasure.Stop();
+            Console.WriteLine($"Tiempo de ejecución: {timeMeasure.Elapsed.TotalMilliseconds} ms");
+        }
+
+        public static long FibonacciRecursivo(int n)
+        {
+            if (n < 2)
+            {
+                return n;
+            }
+            else
+            {
+                return FibonacciRecursivo(n - 2) + FibonacciRecursivo(n - 1);
+            }
+        }
+
+        public static void FibonacciIterativo(int n)
+        {
+            long ant1, ant2;
+            int actual;
+            ant1 = ant2 = 1;
+            Console.Write("0 1 1 ");
+            for (int i = 1; i < n - 2; i++)
+            {
+                actual = (int)(ant1 + ant2);
+                Console.Write(actual + " ");
+                ant2 = ant1;
+                ant1 = actual;
+            }
+        }
+    }
+}
